@@ -1,73 +1,3 @@
-A puppet-lint plugin to check that topscope variables in a class do not begin with $::
-
-## Installation
-
-### From the command line
-```shell
-$ gem install puppet-lint-topscope-variable
-```
-
-### In a Gemfile
-```ruby
-gem 'puppet-lint-topscope-variables-check', require: false
-```
-
-## Checks
-
-#### What you have done
-
-```puppet
-class foo::blub {
-  notify { 'foo':
-    message => $::foo::bar,
-  }
-}
-```
-
-or
-```puppet
-class foo::blub(
-  String $foo = $::foo::params::foo
-) {
-  # ...
-}
-```
-
-#### What you should have done
-
-```puppet
-class foo::blub {
-  notify { 'foo'
-    message => $foo::bar,
-  }
-}
-```
-
-and
-
-```puppet
-class foo::blub(
-  String $foo = $foo::params::foo
-) {
-  # ...
-}
-```
-
-#### Disabling the check
-
-To disable this check, you can add `--no-topscope_variable-check` to your puppet-lint command line:
-```shell
-$ puppet-lint --no-topscope_variable-checks
-```
-
-Alternatively, if you are calling puppet-lint via the Rake task, you should insert the following line into your `Rakefile`:
-
-```ruby
-PuppetLint.configuration.send('disable_topscope_variable')
-```
-
-## License
-```
 MIT License
 
 Copyright (c) 2018 Sixt GmbH & Co. Autovermietung KG
@@ -89,4 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```
