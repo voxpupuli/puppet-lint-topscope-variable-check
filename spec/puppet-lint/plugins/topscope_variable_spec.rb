@@ -139,4 +139,15 @@ describe 'topscope_variable' do
       end
     end
   end
+
+  context 'without a class scope' do
+    let(:code) do
+      <<-PUP.strip_heredoc
+        include ::foo
+      PUP
+    end
+    it 'should not detect any problems' do
+      expect(problems).to have(0).problem
+    end
+  end
 end
