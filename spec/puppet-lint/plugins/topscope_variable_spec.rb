@@ -128,11 +128,41 @@ describe 'topscope_variable' do
         expect(problems).to contain_fixed(msg).on_line(3).in_column(16)
       end
 
-      it 'should add :: after the $' do
+      it 'should remove :: after the $' do
         expect(manifest).to eq <<-PUP.strip_heredoc
           class foo::blub {
             notify { 'foo'
               message => $foo::bar
+            }
+          }
+        PUP
+      end
+    end
+
+    context 'with incorrect topscope in quoted variable' do
+      let(:code) do
+        <<-PUP.strip_heredoc
+          class foo::blub {
+            notify { 'foo'
+              message => ">${::foo::bar}<"
+            }
+          }
+        PUP
+      end
+
+      it 'should detect one problem' do
+        expect(problems).to have(1).problem
+      end
+
+      it 'should fix the problem' do
+        expect(problems).to contain_fixed(msg).on_line(3).in_column(19)
+      end
+
+      it 'should remove :: after the $' do
+        expect(manifest).to eq <<-PUP.strip_heredoc
+          class foo::blub {
+            notify { 'foo'
+              message => ">${foo::bar}<"
             }
           }
         PUP
