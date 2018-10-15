@@ -7,7 +7,7 @@ describe 'topscope_variable' do
       let(:code) do
         <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
+            notify { 'foo':
               message => $foo::bar
             }
           }
@@ -23,7 +23,7 @@ describe 'topscope_variable' do
       let(:code) do
         <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
+            notify { 'foo':
               message => $::foo::bar
             }
           }
@@ -71,10 +71,10 @@ describe 'topscope_variable' do
       let(:code) do
         <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
-                message => $blub::bar
+            notify { 'foo':
+              message => $blub::bar
             }
-           }
+          }
         PUP
       end
 
@@ -97,10 +97,10 @@ describe 'topscope_variable' do
       let(:code) do
         <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
-            message => $foo::bar
+            notify { 'foo':
+              message => $foo::bar
+            }
           }
-        }
         PUP
       end
 
@@ -113,7 +113,7 @@ describe 'topscope_variable' do
       let(:code) do
         <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
+            notify { 'foo':
               message => $::foo::bar
             }
           }
@@ -131,7 +131,7 @@ describe 'topscope_variable' do
       it 'should remove :: after the $' do
         expect(manifest).to eq <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
+            notify { 'foo':
               message => $foo::bar
             }
           }
@@ -143,7 +143,7 @@ describe 'topscope_variable' do
       let(:code) do
         <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
+            notify { 'foo':
               message => ">${::foo::bar}<"
             }
           }
@@ -161,7 +161,7 @@ describe 'topscope_variable' do
       it 'should remove :: after the $' do
         expect(manifest).to eq <<-PUP.strip_heredoc
           class foo::blub {
-            notify { 'foo'
+            notify { 'foo':
               message => ">${foo::bar}<"
             }
           }
