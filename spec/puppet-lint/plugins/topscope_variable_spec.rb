@@ -84,7 +84,7 @@ describe 'topscope_variable' do
     end
   end
 
-  context 'with fix disabled' do
+  context 'with fix enabled' do
     before do
       PuppetLint.configuration.fix = true
     end
