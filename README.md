@@ -9,7 +9,7 @@ $ gem install puppet-lint-topscope-variable
 
 ### In a Gemfile
 ```ruby
-gem 'puppet-lint-topscope-variables-check', require: false
+gem 'puppet-lint-topscope-variable-check', require: false
 ```
 
 ## Checks
