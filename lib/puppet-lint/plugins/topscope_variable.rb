@@ -1,7 +1,9 @@
 PuppetLint.new_check(:topscope_variable) do
   def check
-    class_name = (class_indexes + defined_type_indexes)
-                 .first[:name_token].value.split('::').first
+    class_list = (class_indexes + defined_type_indexes)
+    # do not check if the code is not part of a class
+    return if class_list.first.nil?
+    class_name = class_list.first[:name_token].value.split('::').first
     tokens.select { |x| x.type == :VARIABLE }.each do |token|
       next if token.value !~ /^::#{class_name}::/
       fixed = token.value.sub(/^::/, '')
