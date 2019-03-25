@@ -4,12 +4,12 @@ A puppet-lint plugin to check that topscope variables in a class do not begin wi
 
 ### From the command line
 ```shell
-$ gem install puppet-lint-topscope-variable
+$ gem install puppet-lint-topscope-variable-check
 ```
 
 ### In a Gemfile
 ```ruby
-gem 'puppet-lint-topscope-variables-check', require: false
+gem 'puppet-lint-topscope-variable-check', require: false
 ```
 
 ## Checks
