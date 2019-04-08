@@ -65,6 +65,14 @@ Alternatively, if you are calling puppet-lint via the Rake task, you should inse
 ```ruby
 PuppetLint.configuration.send('disable_topscope_variable')
 ```
+## Limitations
+
+The fix function of this plugin does not work when the variable is used in a string.
+For example:
+
+``` puppet
+$foo = "/etc/$::foobar::path/test"
+```
 
 ## License
 ```
