@@ -1,3 +1,8 @@
+puppet-lint-topscope-variable-check
+========================
+[![Build Status](https://api.travis-ci.org/sixt/puppet-lint-topscope-variable-check.svg)](https://travis-ci.org/sixt/puppet-lint-topscope-variable-check)
+
+
 A puppet-lint plugin to check that topscope variables in a class do not begin with $::
 
 ## Installation
