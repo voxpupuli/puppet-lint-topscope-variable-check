@@ -1,10 +1,10 @@
 Gem::Specification.new do |spec|
   spec.name        = 'puppet-lint-topscope-variable-check'
-  spec.version     = '1.0.0'
+  spec.version     = '1.0.1'
   spec.homepage    = 'https://github.com/Sixt/puppet-lint-topscope-variable-check'
   spec.license     = 'MIT'
   spec.author      = 'Martin Merfort'
-  spec.email       = 'martin.merfort@sixt.com'
+  spec.email       = 'platformengineering@sixt.com'
   spec.files       = Dir[
     'README.md',
     'LICENSE',
