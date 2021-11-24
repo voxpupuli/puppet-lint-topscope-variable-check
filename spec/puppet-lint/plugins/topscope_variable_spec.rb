@@ -155,18 +155,18 @@ describe 'topscope_variable' do
       end
 
       it 'should fix the problem' do
-        expect(problems).to contain_fixed(msg).on_line(3).in_column(19)
+        expect(problems).to contain_fixed(msg).on_line(3).in_column(20)
       end
 
-      # it 'should remove :: after the $' do
-      #   expect(manifest).to eq <<~PUP
-      #     class foo::blub {
-      #       notify { 'foo':
-      #         message => ">${foo::bar}<"
-      #       }
-      #     }
-      #   PUP
-      # end
+      it 'should remove :: after the $' do
+        expect(manifest).to eq <<~PUP
+          class foo::blub {
+            notify { 'foo':
+              message => ">${foo::bar}<"
+            }
+          }
+        PUP
+      end
     end
   end
 

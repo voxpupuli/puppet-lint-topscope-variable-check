@@ -73,12 +73,14 @@ PuppetLint.configuration.send('disable_topscope_variable')
 ```
 ## Limitations
 
-The fix function of this plugin does not work when the variable is used in a string.
+The fix function of this plugin does not work when the variable is used in a string and hasn't been enclosed with `{}`.
 For example:
 
 ``` puppet
 $foo = "/etc/$::foobar::path/test"
 ```
+
+Note: The [Variables Not Enclosed](http://puppet-lint.com/checks/variables_not_enclosed/) check can fix the missing braces and then the fix from this plugin should work.
 
 ## License
 ```
