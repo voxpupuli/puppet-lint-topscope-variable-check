@@ -1,8 +1,10 @@
 puppet-lint-topscope-variable-check
 ========================
-[![Build Status](https://api.travis-ci.org/sixt/puppet-lint-topscope-variable-check.svg)](https://travis-ci.org/sixt/puppet-lint-topscope-variable-check)
-[![Gem Version](https://badge.fury.io/rb/puppet-lint-topscope-variable-check.svg)](https://badge.fury.io/rb/puppet-lint-topscope-variable-check)
-
+[![License](https://img.shields.io/github/license/voxpupuli/puppet-lint-topscope-variable-check.svg)](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/blob/master/LICENSE)
+[![Test](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/actions/workflows/test.yml/badge.svg)](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/actions/workflows/test.yml)
+[![Release](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/actions/workflows/release.yml/badge.svg)](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/actions/workflows/release.yml)
+[![RubyGem Version](https://img.shields.io/gem/v/puppet-lint-topscope-variable-check.svg)](https://rubygems.org/gems/puppet-lint-topscope-variable-check)
+[![RubyGem Downloads](https://img.shields.io/gem/dt/puppet-lint-topscope-variable-check.svg)](https://rubygems.org/gems/puppet-lint-topscope-variable-check)
 
 A puppet-lint plugin to check that topscope variables in a class do not begin with $::
 
@@ -73,12 +75,21 @@ PuppetLint.configuration.send('disable_topscope_variable')
 ```
 ## Limitations
 
-The fix function of this plugin does not work when the variable is used in a string.
+The fix function of this plugin does not work when the variable is used in a string and hasn't been enclosed with `{}`.
 For example:
 
 ``` puppet
 $foo = "/etc/$::foobar::path/test"
 ```
+
+Note: The [Variables Not Enclosed](http://puppet-lint.com/checks/variables_not_enclosed/) check can fix the missing braces and then the fix from this plugin should work.
+
+## Transfer Notice
+
+This plugin and github repository was originally developed and maintained by [Sixt](https://www.sixt.com/).
+On 2021/11/24 the github project was transferred to [Voxpupuli](https://voxpupuli.org/) for ongoing improvement and maintenance.
+
+Previously: https://github.com/Sixt/puppet-lint-topscope-variable-check
 
 ## License
 ```

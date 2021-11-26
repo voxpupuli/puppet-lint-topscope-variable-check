@@ -5,7 +5,7 @@ describe 'topscope_variable' do
   context 'with fix disabled' do
     context 'with correct topscope' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub {
             notify { 'foo':
               message => $foo::bar
@@ -21,7 +21,7 @@ describe 'topscope_variable' do
 
     context 'with incorrect topscope' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub {
             notify { 'foo':
               message => $::foo::bar
@@ -37,7 +37,7 @@ describe 'topscope_variable' do
 
     context 'with correct topscope in params' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub(
             String $foo = $params::foo
           ) {
@@ -53,7 +53,7 @@ describe 'topscope_variable' do
 
     context 'with incorrect topscope in params' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub(
             String $foo = $::foo::params::foo
           ) {
@@ -69,7 +69,7 @@ describe 'topscope_variable' do
 
     context 'with a fact that has been used improperly' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub {
             notify { 'foo':
               message => $blub::bar
@@ -95,7 +95,7 @@ describe 'topscope_variable' do
 
     context 'with correct topscope' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub {
             notify { 'foo':
               message => $foo::bar
@@ -111,7 +111,7 @@ describe 'topscope_variable' do
 
     context 'with incorrect topscope' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub {
             notify { 'foo':
               message => $::foo::bar
@@ -129,7 +129,7 @@ describe 'topscope_variable' do
       end
 
       it 'should remove :: after the $' do
-        expect(manifest).to eq <<-PUP.strip_heredoc
+        expect(manifest).to eq <<~PUP
           class foo::blub {
             notify { 'foo':
               message => $foo::bar
@@ -141,7 +141,7 @@ describe 'topscope_variable' do
 
     context 'with incorrect topscope in quoted variable' do
       let(:code) do
-        <<-PUP.strip_heredoc
+        <<~PUP
           class foo::blub {
             notify { 'foo':
               message => ">${::foo::bar}<"
@@ -155,24 +155,24 @@ describe 'topscope_variable' do
       end
 
       it 'should fix the problem' do
-        expect(problems).to contain_fixed(msg).on_line(3).in_column(19)
+        expect(problems).to contain_fixed(msg).on_line(3).in_column(20)
       end
 
-      # it 'should remove :: after the $' do
-      #   expect(manifest).to eq <<-PUP.strip_heredoc
-      #     class foo::blub {
-      #       notify { 'foo':
-      #         message => ">${foo::bar}<"
-      #       }
-      #     }
-      #   PUP
-      # end
+      it 'should remove :: after the $' do
+        expect(manifest).to eq <<~PUP
+          class foo::blub {
+            notify { 'foo':
+              message => ">${foo::bar}<"
+            }
+          }
+        PUP
+      end
     end
   end
 
   context 'without a class scope' do
     let(:code) do
-      <<-PUP.strip_heredoc
+      <<~PUP
         include ::foo
       PUP
     end
