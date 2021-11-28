@@ -35,6 +35,22 @@ describe 'topscope_variable' do
       end
     end
 
+    context 'with incorrect topscope from external module' do
+      let(:code) do
+        <<~PUP
+          class profile::foo {
+            notify { 'foo':
+              message => $::some_component_module::bar
+            }
+          }
+        PUP
+      end
+
+      it 'should detect one problem' do
+        expect(problems).to have(1).problem
+      end
+    end
+
     context 'with correct topscope in params' do
       let(:code) do
         <<~PUP
@@ -72,8 +88,24 @@ describe 'topscope_variable' do
         <<~PUP
           class foo::blub {
             notify { 'foo':
-              message => $blub::bar
+              message => $::operatingsystem
             }
+          }
+        PUP
+      end
+
+      it 'should not detect any problems' do
+        expect(problems).to have(0).problem
+      end
+    end
+
+    context 'with a fact that has been used improperly in params' do
+      let(:code) do
+        <<~PUP
+          class foo::blub(
+            String $foo = $::operatingsystem
+          ) {
+            # ...
           }
         PUP
       end
@@ -133,6 +165,36 @@ describe 'topscope_variable' do
           class foo::blub {
             notify { 'foo':
               message => $foo::bar
+            }
+          }
+        PUP
+      end
+    end
+
+    context 'with incorrect topscope from external module' do
+      let(:code) do
+        <<~PUP
+          class profile::foo {
+            notify { 'foo':
+              message => $::some_component_module::bar
+            }
+          }
+        PUP
+      end
+
+      it 'should detect one problem' do
+        expect(problems).to have(1).problem
+      end
+
+      it 'should fix the problem' do
+        expect(problems).to contain_fixed('use $some_component_module::bar instead of $::some_component_module::bar').on_line(3).in_column(16)
+      end
+
+      it 'should remove :: after the $' do
+        expect(manifest).to eq <<~PUP
+          class profile::foo {
+            notify { 'foo':
+              message => $some_component_module::bar
             }
           }
         PUP
