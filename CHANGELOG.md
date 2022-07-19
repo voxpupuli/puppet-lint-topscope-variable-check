@@ -1,9 +1,32 @@
 # Changelog
 
-All notable changes to this plugin will be documented in this file.
+All notable changes to this project will be documented in this file.
 
-## `1.0.1`
-Use correct email address.
+## [1.1.0](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/tree/1.1.0) (2022-07-19)
 
-## `1.0.0`
-Initial release.
+[Full Changelog](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/compare/1.0.1...1.1.0)
+
+**Implemented enhancements:**
+
+- Detect `$::` when accessing variable from different module [\#12](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/pull/12) ([alexjfisher](https://github.com/alexjfisher))
+
+**Closed issues:**
+
+- Could not find a valid gem 'puppet-lint-topscope-variable-check' \(\>= 0\) in any repository [\#3](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/issues/3)
+
+**Merged pull requests:**
+
+- Fixup gemspec after migration to Vox Pupuli [\#11](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/pull/11) ([alexjfisher](https://github.com/alexjfisher))
+- Transfer plugin to Vox Pupuli [\#10](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/pull/10) ([alexjfisher](https://github.com/alexjfisher))
+- Add gem version badge [\#9](https://github.com/voxpupuli/puppet-lint-topscope-variable-check/pull/9) ([mmerfort](https://github.com/mmerfort))
+
+## 1.0.1 (2019-04-12)
+
+* Use correct email address.
+
+## 1.0.0 (2019-04-12)
+
+* Initial release.
+
+
+\* *This Changelog was automatically generated       by [github_changelog_generator]      (https://github.com/github-changelog-generator/github-changelog-generator)*
