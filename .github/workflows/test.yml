@@ -1,8 +1,10 @@
 name: Test
 
 on:
-  - pull_request
-  - push
+  pull_request: {}
+  push:
+    branches:
+      - master
 
 env:
   BUNDLE_WITHOUT: release
@@ -19,12 +21,13 @@ jobs:
           - ruby: "2.6"
           - ruby: "2.7"
           - ruby: "3.0"
+          - ruby: "3.1"
             coverage: "yes"
     env:
       COVERAGE: ${{ matrix.coverage }}
     name: Ruby ${{ matrix.ruby }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Install Ruby ${{ matrix.ruby }}
         uses: ruby/setup-ruby@v1
         with:
