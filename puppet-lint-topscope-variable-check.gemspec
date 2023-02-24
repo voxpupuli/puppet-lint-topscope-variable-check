@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   DESC
 
   spec.add_dependency             'puppet-lint', '~> 2.0'
-  spec.add_development_dependency 'rake', '~> 12.0'
+  spec.add_development_dependency 'rake', '~> 13.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec-collection_matchers', '~> 1.0'
   spec.add_development_dependency 'rspec-its', '~> 1.0'
