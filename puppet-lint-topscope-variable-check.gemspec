@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name        = 'puppet-lint-topscope-variable-check'
-  spec.version     = '1.1.0'
+  spec.version     = '1.2.0'
   spec.homepage    = 'https://github.com/voxpupuli/puppet-lint-topscope-variable-check'
   spec.license     = 'MIT'
   spec.author      = 'Vox Pupuli'
