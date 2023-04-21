@@ -1,5 +1,5 @@
 Gem::Specification.new do |spec|
-  spec.name        = 'puppet-lint-topscope-variable-check'
+  spec.name = 'puppet-lint-topscope-variable-check'
   spec.version     = '1.2.0'
   spec.homepage    = 'https://github.com/voxpupuli/puppet-lint-topscope-variable-check'
   spec.license     = 'MIT'
@@ -11,16 +11,12 @@ Gem::Specification.new do |spec|
     'lib/**/*',
     'spec/**/*',
   ]
-  spec.test_files  = Dir['spec/**/*']
   spec.summary     = 'A puppet-lint plugin to check topscope variables.'
   spec.description = <<-DESC
     A puppet-lint plugin to check that topscope variable names don't start with ::.
   DESC
 
-  spec.add_dependency             'puppet-lint', '>= 2.0', '< 4'
-  spec.add_development_dependency 'rake', '>= 12.0', '< 14'
-  spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'rspec-collection_matchers', '~> 1.0'
-  spec.add_development_dependency 'rspec-its', '~> 1.0'
-  spec.add_development_dependency 'simplecov'
+  spec.required_ruby_version = '>= 2.7.0'
+
+  spec.add_dependency 'puppet-lint', '>= 3', '< 5'
 end

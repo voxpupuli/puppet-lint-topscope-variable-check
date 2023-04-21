@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'topscope_variable' do
   let(:msg) { 'use $foo::bar instead of $::foo::bar' }
+
   context 'with fix disabled' do
     context 'with correct topscope' do
       let(:code) do
@@ -14,7 +15,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should not detect any problems' do
+      it 'does not detect any problems' do
         expect(problems).to have(0).problem
       end
     end
@@ -30,7 +31,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should detect one problem' do
+      it 'detects one problem' do
         expect(problems).to have(1).problem
       end
     end
@@ -46,7 +47,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should detect one problem' do
+      it 'detects one problem' do
         expect(problems).to have(1).problem
       end
     end
@@ -62,7 +63,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should not detect any problems' do
+      it 'does not detect any problems' do
         expect(problems).to have(0).problem
       end
     end
@@ -78,7 +79,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should detect one problem' do
+      it 'detects one problem' do
         expect(problems).to have(1).problem
       end
     end
@@ -94,7 +95,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should not detect any problems' do
+      it 'does not detect any problems' do
         expect(problems).to have(0).problem
       end
     end
@@ -110,7 +111,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should not detect any problems' do
+      it 'does not detect any problems' do
         expect(problems).to have(0).problem
       end
     end
@@ -136,7 +137,7 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should not detect any problems' do
+      it 'does not detect any problems' do
         expect(problems).to have(0).problem
       end
     end
@@ -152,15 +153,15 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should detect one problem' do
+      it 'detects one problem' do
         expect(problems).to have(1).problem
       end
 
-      it 'should fix the problem' do
+      it 'fixes the problem' do
         expect(problems).to contain_fixed(msg).on_line(3).in_column(16)
       end
 
-      it 'should remove :: after the $' do
+      it 'removes :: after the $' do
         expect(manifest).to eq <<~PUP
           class foo::blub {
             notify { 'foo':
@@ -182,15 +183,15 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should detect one problem' do
+      it 'detects one problem' do
         expect(problems).to have(1).problem
       end
 
-      it 'should fix the problem' do
+      it 'fixes the problem' do
         expect(problems).to contain_fixed('use $some_component_module::bar instead of $::some_component_module::bar').on_line(3).in_column(16)
       end
 
-      it 'should remove :: after the $' do
+      it 'removes :: after the $' do
         expect(manifest).to eq <<~PUP
           class profile::foo {
             notify { 'foo':
@@ -212,15 +213,15 @@ describe 'topscope_variable' do
         PUP
       end
 
-      it 'should detect one problem' do
+      it 'detects one problem' do
         expect(problems).to have(1).problem
       end
 
-      it 'should fix the problem' do
+      it 'fixes the problem' do
         expect(problems).to contain_fixed(msg).on_line(3).in_column(20)
       end
 
-      it 'should remove :: after the $' do
+      it 'removes :: after the $' do
         expect(manifest).to eq <<~PUP
           class foo::blub {
             notify { 'foo':
@@ -238,7 +239,8 @@ describe 'topscope_variable' do
         include ::foo
       PUP
     end
-    it 'should not detect any problems' do
+
+    it 'does not detect any problems' do
       expect(problems).to have(0).problem
     end
   end
