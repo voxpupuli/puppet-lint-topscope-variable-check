@@ -17,6 +17,8 @@ Gem::Specification.new do |spec|
     A puppet-lint plugin to check that topscope variable names don't start with ::.
   DESC
 
+  spec.required_ruby_version = '>= 2.7.0'
+
   spec.add_dependency             'puppet-lint', '>= 3', '< 5'
   spec.add_development_dependency 'rake', '>= 12.0', '< 14'
   spec.add_development_dependency 'rspec', '~> 3.0'
