@@ -5,14 +5,15 @@ PuppetLint.new_check(:topscope_variable) do
     return if class_list.first.nil?
 
     tokens.select { |x| x.type == :VARIABLE }.each do |token|
-      next if token.value !~ /^::[a-z0-9_][a-zA-Z0-9_]+::/
+      next unless /^::[a-z0-9_][a-zA-Z0-9_]+::/.match?(token.value)
+
       fixed = token.value.sub(/^::/, '')
       notify(
         :warning,
         message: "use $#{fixed} instead of $#{token.value}",
         line: token.line,
         column: token.column,
-        token: token
+        token: token,
       )
     end
   end
