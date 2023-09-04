@@ -153,6 +153,16 @@ describe 'topscope_variable' do
         PUP
       end
 
+      let(:fixed) do
+        <<~PUP
+          class foo::blub {
+            notify { 'foo':
+              message => $foo::bar
+            }
+          }
+        PUP
+      end
+
       it 'detects one problem' do
         expect(problems).to have(1).problem
       end
@@ -162,13 +172,7 @@ describe 'topscope_variable' do
       end
 
       it 'removes :: after the $' do
-        expect(manifest).to eq <<~PUP
-          class foo::blub {
-            notify { 'foo':
-              message => $foo::bar
-            }
-          }
-        PUP
+        expect(manifest).to eq fixed
       end
     end
 
@@ -183,6 +187,16 @@ describe 'topscope_variable' do
         PUP
       end
 
+      let(:fixed) do
+        <<~PUP
+          class profile::foo {
+            notify { 'foo':
+              message => $some_component_module::bar
+            }
+          }
+        PUP
+      end
+
       it 'detects one problem' do
         expect(problems).to have(1).problem
       end
@@ -192,13 +206,7 @@ describe 'topscope_variable' do
       end
 
       it 'removes :: after the $' do
-        expect(manifest).to eq <<~PUP
-          class profile::foo {
-            notify { 'foo':
-              message => $some_component_module::bar
-            }
-          }
-        PUP
+        expect(manifest).to eq fixed
       end
     end
 
@@ -213,6 +221,16 @@ describe 'topscope_variable' do
         PUP
       end
 
+      let(:fixed) do
+        <<~PUP
+          class foo::blub {
+            notify { 'foo':
+              message => ">${foo::bar}<"
+            }
+          }
+        PUP
+      end
+
       it 'detects one problem' do
         expect(problems).to have(1).problem
       end
@@ -222,13 +240,7 @@ describe 'topscope_variable' do
       end
 
       it 'removes :: after the $' do
-        expect(manifest).to eq <<~PUP
-          class foo::blub {
-            notify { 'foo':
-              message => ">${foo::bar}<"
-            }
-          }
-        PUP
+        expect(manifest).to eq fixed
       end
     end
   end
