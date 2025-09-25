@@ -210,6 +210,36 @@ describe 'topscope_variable' do
       end
     end
 
+    context 'with incorrect topscope from facts hash' do
+      let(:code) do
+        <<~PUP
+          class profile::foo {
+            notify { 'foo':
+              message => $::facts['some_component_module'],
+            }
+          }
+        PUP
+      end
+
+      it 'should detect one problem' do
+        expect(problems).to have(1).problem
+      end
+
+      it 'should fix the problem' do
+        expect(problems).to contain_fixed('use $some_component_module::bar instead of $::some_component_module::bar').on_line(3).in_column(16)
+      end
+
+      it 'should remove :: after the $' do
+        expect(manifest).to eq <<~PUP
+          class profile::foo {
+            notify { 'foo':
+              message => $facts['some_component_module'],
+            }
+          }
+        PUP
+      end
+    end
+
     context 'with incorrect topscope in quoted variable' do
       let(:code) do
         <<~PUP
@@ -241,6 +271,36 @@ describe 'topscope_variable' do
 
       it 'removes :: after the $' do
         expect(manifest).to eq fixed
+      end
+    end
+
+    context 'with incorrect topscope facts hash in quoted variable' do
+      let(:code) do
+        <<~PUP
+          class foo::blub {
+            notify { 'foo':
+              message => ">${::facts['bar'}<"
+            }
+          }
+        PUP
+      end
+
+      it 'should detect one problem' do
+        expect(problems).to have(1).problem
+      end
+
+      it 'should fix the problem' do
+        expect(problems).to contain_fixed(msg).on_line(3).in_column(20)
+      end
+
+      it 'should remove :: after the $' do
+        expect(manifest).to eq <<~PUP
+          class foo::blub {
+            notify { 'foo':
+              message => ">${facts['ar']}<"
+            }
+          }
+        PUP
       end
     end
   end
